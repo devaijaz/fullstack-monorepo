@@ -1,1 +1,15 @@
 /* You can add global styles to this file, and also import other style files */
+@tailwind components;
+@tailwind base;
+@tailwind utilities;
+
+@layer components {
+  .btn {
+    @apply border px-2 py-1 shadow-md hover:shadow-none
+  }
+}
+
+#root {
+  min-height:100vh;
+  position: relative;
+}
