@@ -16,10 +16,11 @@ const client = axios.create({
     'Access-Control-Allow-Origin': '*',
     'Content-Type': 'application/json',
   },
+  withCredentials: true,
 });
 const refresh = function () {
   return client
-    .post('/auth/refresh', {}, { withCredentials: true })
+    .post('/auth/refresh')
     .then((response) => response.data)
     .then(({ token }) => {
       setJWTToken(token);
@@ -78,16 +79,10 @@ export function useClient() {
 
   const login = useCallback((username: string, password: string) => {
     client
-      .post(
-        '/auth/login',
-        {
-          username,
-          password,
-        },
-        {
-          withCredentials: true,
-        }
-      )
+      .post('/auth/login', {
+        username,
+        password,
+      })
       .then(({ data }) => {
         const jwtToken = (
           data as {
@@ -106,12 +101,7 @@ export function useClient() {
   }, []);
 
   const getTodos = useCallback(
-    () =>
-      client
-        .get('/todos', {
-          withCredentials: true,
-        })
-        .then((response) => response.data as Todo[]),
+    () => client.get('/todos').then((response) => response.data as Todo[]),
 
     []
   );

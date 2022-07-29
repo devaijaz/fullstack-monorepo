@@ -12,9 +12,10 @@ function addCookie(
   value: string,
   age: number
 ) {
+  console.log();
   response.cookie(key, value, {
     httpOnly: true,
-    maxAge: age,
+    expires: new Date(new Date().getTime() + 3600 * 24 * age * 1000),
   });
 }
 
@@ -23,7 +24,7 @@ export function addAccessTokenHeader(response: Response, value: string) {
 }
 
 export function addRefreshToken(response: Response, value: string) {
-  addCookie(response, REFRESH_TOKEN_COOKIE_NAME, value, 3600 * 24 * 7);
+  addCookie(response, REFRESH_TOKEN_COOKIE_NAME, value, 7);
 }
 export function removeRefreshToken(response: Response) {
   addCookie(response, REFRESH_TOKEN_COOKIE_NAME, '', 0);

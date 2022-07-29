@@ -8,6 +8,7 @@ export const exceptionHandler = function (
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   next: NextFunction
 ) {
-  console.log(error.statusCode);
-  response.status(error.statusCode).send({ message: error.message });
+  response
+    .status(error.statusCode ?? 500)
+    .send({ message: error.message ?? 'Server Error! Try again later' });
 };

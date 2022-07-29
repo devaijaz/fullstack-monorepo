@@ -13,10 +13,9 @@ export const JwtService = {
     return this.generateToken(payload, '5s');
   },
   generateRefreshToken(payload: Record<string, string>): string {
-    return this.generateToken(payload, '7 days');
+    return this.generateToken(payload, '7d');
   },
   verify(token: string) {
-    console.log('Verifying ', token);
     return jwt.verify(token, environment.SECRET, { complete: true });
   },
   verifyAccessTokenInRequest(request: Request) {
